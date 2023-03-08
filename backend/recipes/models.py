@@ -139,29 +139,33 @@ class BaseSelect(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Выбор рецепта'
+        verbose_name_plural = 'Выбор рецептов'
         abstract = True
         ordering = ('user',)
-        constraints = [models.UniqueConstraint(fields=['user', 'recipe'],
-                       name='already_selected')]
+
+    def __str__(self):
+        return f'"{self.recipe}" добавил {self.user}'
 
 
 class Favorite(BaseSelect):
 
-    class Meta:
+    class Meta(BaseSelect.Meta):
         default_related_name = 'favorites'
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
+        constraints = [models.UniqueConstraint(fields=['user', 'recipe'],
+                       name='already_favourite')]
 
     def __str__(self):
-        return f'"{self.recipe}" в избранном у {self.user}'
+        return f'"{self.recipe}" добавил {self.user}'
 
 
 class ShoppingCart(BaseSelect):
 
-    class Meta:
+    class Meta(BaseSelect.Meta):
         default_related_name = 'shopping_cart'
         verbose_name = 'Корзина покупок'
         verbose_name_plural = 'Корзина покупок'
-
-    def __str__(self):
-        return f'"{self.recipe}" в корзине у {self.user}'
+        constraints = [models.UniqueConstraint(fields=['user', 'recipe'],
+                       name='already_shopping_cart')]

@@ -6,6 +6,7 @@ from .models import (Favorite, Ingredient, IngredientInRecipe,
 
 class AdminIngredientInRecipe(admin.TabularInline):
     model = IngredientInRecipe
+    min_num = 1
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -22,10 +23,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
     @admin.display(description='Ингредиенты')
     def ingredients_recipe(self, obj):
-        ingredients_list = []
-        for ingredient in obj.ingredients.all():
-            ingredients_list.append(ingredient.name)
-        return ingredients_list
+        return [i for i in obj.ingredients.all()]
 
 
 class TagAdmin(admin.ModelAdmin):
