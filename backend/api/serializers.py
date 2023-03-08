@@ -1,8 +1,8 @@
 from django.db.models import F
 from djoser.serializers import UserSerializer
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework import serializers, status
 from rest_framework.exceptions import ValidationError
+from rest_framework import serializers, status
 
 from recipes.models import (Favorite, Ingredient, IngredientInRecipe,
                             Recipe, ShoppingCart, Tag)
