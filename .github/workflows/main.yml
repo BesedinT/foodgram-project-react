@@ -53,11 +53,12 @@ jobs:
           file: frontend/Dockerfile
           context: frontend/
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/backend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
 
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
@@ -70,6 +71,8 @@ jobs:
           script: |
             cd infra
             sudo docker-compose stop
+            sudo docker-compose pull
+            sudo docker image prune -f
             sudo docker-compose rm backend
             sudo docker-compose rm frontend
             touch .env
