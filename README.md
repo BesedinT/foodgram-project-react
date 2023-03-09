@@ -1,5 +1,7 @@
 # Foodgram - Продуктовый помощник
 
+![example workflow](https://github.com/BesedinT/foodgram-project-react/actions/workflows/main.yml/badge.svg)
+
 ## Описание проекта
 
 Foodgram это ресурс для публикации рецептов.  
