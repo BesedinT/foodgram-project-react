@@ -86,6 +86,7 @@ jobs:
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
             echo DEBUG=${{ secrets.DEBUG }} >> .env
             echo DATABASE_ROUTERS=${{ secrets.DATABASE_ROUTERS }} >> .env
+            sudo docker-compose build
             sudo docker-compose up -d
 
   send_message:
