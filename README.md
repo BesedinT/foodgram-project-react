@@ -81,6 +81,10 @@ Foodgram это ресурс для публикации рецептов.
 
 `$ sudo docker-compose exec backend python manage.py createsuperuser`  
 
+- Загрузите ингредиенты и тэги в базу данных командой:
+
+`$ sudo docker-compose exec backend python manage.py import_data`
+
 __________________________________
 
 Проект запустится на http://{IP адрес удаленного сервера}/   
