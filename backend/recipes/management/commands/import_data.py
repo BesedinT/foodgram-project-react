@@ -19,7 +19,7 @@ class Command(BaseCommand):
 
         print('Loading data')
 
-        with open('../data/ingredients.csv', encoding='utf8') as f:
+        with open('data/ingredients.csv', encoding='utf8') as f:
             print('Loading ingredients')
             csv_reader = reader(f)
             for row_1, row_2 in csv_reader:
@@ -28,7 +28,7 @@ class Command(BaseCommand):
                     measurement_unit=row_2
                 )
 
-        with open('../data/tags.csv', encoding='utf8') as f:
+        with open('data/tags.csv', encoding='utf8') as f:
             print('Loading tags')
             csv_reader = reader(f)
             for row_1, row_2, row_3 in csv_reader:
