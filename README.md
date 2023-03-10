@@ -7,6 +7,10 @@
 Foodgram это ресурс для публикации рецептов.  
 Пользователи могут создавать свои рецепты, читать рецепты других пользователей, подписываться на интересных авторов, добавлять лучшие рецепты в избранное, а также создавать список покупок и загружать его в txt формате
 
+Функционал проекта адаптирован для использования PostgreSQL и развертывания в контейнерах Docker. Используются инструменты CI и CD
+
+Проект запущен и доступен по [адресу](http://158.160.2.119)
+
 ## Стек технологий
 
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
@@ -16,52 +20,72 @@ Foodgram это ресурс для публикации рецептов.
 
 ## Запуск проекта
 
-* Склонировать репозиторий на локальную машину:
-```bash
-git clone git@github.com:BesedinT/foodgram-project-react.git
-cd foodgram-project-react
-```
+- Склонируйте репозитрий на свой компьютер 
 
-* Cоздать и активировать виртуальное окружение:
+- Выполните вход на удаленный сервер  
 
-```bash
-python -m venv env
-```
+- Установите docker на сервер:  
 
-```bash
-source env/bin/activate
-```
+`$ sudo apt install docker.io`  
 
-* Cоздайте файл `.env` в директории `/backend/` с содержанием:
+- Установить docker-compose на сервер согласно [документации](https://docs.docker.com/compose/install/)
 
-```
-SECRET_KEY=секретный ключ django
-DB_ENGINE=django.db.backends.postgresql
-DB_NAME= # Имя базы POSTGRES
-POSTGRES_USER= # имя пользователя POSTGRES
-POSTGRES_PASSWORD= # пароль пользователя POSTGRES
-DB_HOST=localhost
-DB_PORT=5432
-```
+- Скопируйте файлы docker-compose.yml и nginx.conf из директории infra на сервер:
 
-* Перейти в директирию и установить зависимости из файла requirements.txt:
+`$ scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml`   
+`$ scp -r  nginx.conf <username>@<host>:/home/<username>/`
 
-```bash
-cd backend/
-pip install -r requirements.txt
-```
+- Для работы с Workflow необходимо добавить в GitHub Actions secrets переменные окружения для работы:
+    >DB_ENGINE = django.db.backends.postgresql  
+    >DB_NAME = # название БД  
+    >POSTGRES_USER = # ваше имя пользователя  
+    >POSTGRES_PASSWORD = # пароль для доступа к БД  
+    >DB_HOST = db  
+    >DB_PORT = 5432 
+     
+    >SECRET_KEY = '# Django SECRET_KEY'  
+    
+    >DOCKER_USERNAME = # имя пользователя на DockerHub  
+    >DOCKER_PASSWORD = # пароль DockerHub  
+    
+    >USER = # имя пользователя на удаленном сервере  
+    >HOST = # IP удаленного сервера  
+    >PASSPHRASE = # пароль ssh-ключа  
+    >SSH_KEY = # SSH ключ (для получения выполните команду на локальном компьютере: cat ~/.ssh/id_rsa) 
+    
+    >TELEGRAM_TO = # ID чата, в который придет сообщение о выполнении Workflow  
+    >TELEGRAM_TOKEN = # токен вашего бота
+    
+    >ALLOWED_HOSTS = # имена используемых хостов/доменов (добавьте значение: web) 
+    >DEBUG = # параметр DEBUG файла settings.py (FALSE или TRUE, параметр допустимо не указывать, значение по умолчанию - FALSE)  
+    
 
-* Выполните миграции:
+- Workflow запускается после каждого пуша проекта на GitHub и состоит из четырёх шагов:
+     - проверка кода на соответствие стандарту PEP8 (с помощью пакета flake8)
+     - cборка и доставка докер-образа для контейнера web на Docker Hub
+     - автоматический деплой проекта на удаленный сервер
+     - отправка уведомления в Telegram о том, что процесс деплоя успешно завершился 
 
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
+- Последующие действия выполняются на удаленном сервере после успешного деплоя   
 
-* Запустите сервер:
-```bash
-python manage.py runserver
-```
+- Выполните миграции   
+
+`$ sudo docker-compose exec backend python manage.py makemigrations`    
+`$ sudo docker-compose exec backend python manage.py migrate`  
+
+- Соберите статику     
+
+`$ sudo docker-compose exec backend python manage.py collectstatic --no-input`    
+
+- Для доступа к админке не забудьте создать суперюзера  
+
+`$ sudo docker-compose exec backend python manage.py createsuperuser`  
+
+__________________________________
+
+Проект запустится на http://{IP адрес удаленного сервера}/   
+
+Полная документация доступна по адресу http://{IP адрес удаленного сервера}/redoc/
 
 ## Автор backend'а:
 
