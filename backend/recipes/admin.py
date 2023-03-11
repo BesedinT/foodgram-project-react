@@ -10,7 +10,8 @@ class AdminIngredientInRecipe(admin.TabularInline):
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'author', 'ingredients_recipe')
+    list_display = ('id', 'name', 'author', 'ingredients_recipe',
+                    'added_to_favorite')
     readonly_fields = ('added_to_favorite',)
     list_filter = ('author', 'name', 'tags',)
     inlines = [
@@ -23,7 +24,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
     @admin.display(description='Ингредиенты')
     def ingredients_recipe(self, obj):
-        return [i for i in obj.ingredients.all()]
+        return [ingredient for ingredient in obj.ingredients.all()]
 
 
 class TagAdmin(admin.ModelAdmin):
