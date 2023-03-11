@@ -31,8 +31,6 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf\
-      - ./158.160.2.119.crt:/etc/nginx/158.160.2.119.crt
-      - ./158.160.2.119.key:/etc/nginx/158.160.2.119.key
       - ../frontend/build:/usr/share/nginx/html/
       - ./docs/:/usr/share/nginx/html/api/docs/
       - static_value:/var/html/static/
