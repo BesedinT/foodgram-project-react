@@ -32,7 +32,7 @@ Foodgram это ресурс для публикации рецептов.
 
 - Скопируйте файлы docker-compose.yml, nginx.conf из директории infra и статику redoc на сервер:
 
-`$ scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml`   
+`$ scp docker-compose.yml <username>@<host>:/home/<username>/`   
 `$ scp nginx.conf <username>@<host>:/home/<username>/`  
 `$ scp -r /docs/ <username>@<host>:/home/<username>/`
 
