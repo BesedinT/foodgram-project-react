@@ -9,7 +9,7 @@ Foodgram это ресурс для публикации рецептов.
 
 Функционал проекта адаптирован для использования PostgreSQL и развертывания в контейнерах Docker. Используются инструменты CI и CD
 
-Проект запущен и доступен по [адресу](http://158.160.2.119)
+Проект запущен и доступен по [адресу](http://foodgram.myddns.me)
 
 ## Стек технологий
 
@@ -30,10 +30,11 @@ Foodgram это ресурс для публикации рецептов.
 
 - Установить docker-compose на сервер согласно [документации](https://docs.docker.com/compose/install/)
 
-- Скопируйте файлы docker-compose.yml и nginx.conf из директории infra на сервер:
+- Скопируйте файлы docker-compose.yml, nginx.conf из директории infra и статику redoc на сервер:
 
 `$ scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml`   
 `$ scp nginx.conf <username>@<host>:/home/<username>/`
+`$ scp -r /docs/ <username>@<host>:/home/<username>/`
 
 - Для работы с Workflow необходимо добавить в GitHub Actions secrets переменные окружения для работы:
     >DB_ENGINE = django.db.backends.postgresql  
