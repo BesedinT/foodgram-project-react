@@ -33,7 +33,7 @@ Foodgram это ресурс для публикации рецептов.
 - Скопируйте файлы docker-compose.yml и nginx.conf из директории infra на сервер:
 
 `$ scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml`   
-`$ scp -r  nginx.conf <username>@<host>:/home/<username>/`
+`$ scp nginx.conf <username>@<host>:/home/<username>/`
 
 - Для работы с Workflow необходимо добавить в GitHub Actions secrets переменные окружения для работы:
     >DB_ENGINE = django.db.backends.postgresql  
