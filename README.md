@@ -9,8 +9,6 @@ Foodgram это ресурс для публикации рецептов.
 
 Функционал проекта адаптирован для использования PostgreSQL и развертывания в контейнерах Docker. Используются инструменты CI и CD
 
-Проект запущен и доступен по [адресу](http://foodgram.myddns.me)
-
 ## Стек технологий
 
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
